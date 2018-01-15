@@ -1,0 +1,21 @@
+// Simple example of real time clock animation
+// TODO: Get time zone info (eg from timeanddate.com) and 
+
+L.Control.Time = L.Control.extend({
+
+  onAdd: function(map){
+  	this._element = L.DomUtil.create('div');
+  	this._element.style.backgroundColor = "white";
+  	var animFn = function(){
+  		this._element.innerHTML = new Date();
+  		this._animFrame = L.Util.requestAnimFrame(animFn, this, true);
+    }
+  	this._animFrame = L.Util.requestAnimFrame(animFn, this, true);
+  	return this._element;
+  },
+  onRemove: function(map){
+    // Clean up animation requests
+    L.Util.cancelAnimFrame(this._animFrame);
+  }
+
+});
